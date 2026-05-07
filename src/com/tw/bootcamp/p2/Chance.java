@@ -13,9 +13,9 @@ public class Chance {
 
   public static Chance create(double chance) throws InvalidChance {
     if (chance < MIN_CHANCE || chance > MAX_CHANCE) {
-      throw  new InvalidChance(chance + " is a invalid chance value");
+      throw new InvalidChance(chance + " is a invalid chance value");
     }
-    return  new Chance(chance);
+    return new Chance(chance);
   }
 
   public Chance not() throws InvalidChance {
@@ -31,5 +31,14 @@ public class Chance {
   @Override
   public int hashCode() {
     return Objects.hashCode(chance);
+  }
+
+  public Chance or(Chance otherChance) {
+    return new Chance(chance + otherChance.chance - this.and(otherChance).chance);
+
+  }
+
+  public Chance and(Chance otherChance) {
+    return new Chance(chance * otherChance.chance);
   }
 }

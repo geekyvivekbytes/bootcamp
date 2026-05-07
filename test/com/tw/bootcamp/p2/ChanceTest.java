@@ -31,4 +31,20 @@ public class ChanceTest {
     Chance chanceOfGettingTails = Chance.create(0.25);
     assertEquals(Chance.create(0.25), chanceOfGettingTails);
   }
+
+  @Test
+  void itShouldRepresentTheChanceOfGettingTwoTails() throws InvalidChance {
+    Chance chanceOfSecondTail1 = Chance.create(0.5);
+    Chance chanceOfFirstTail2 = Chance.create(0.5);
+    Chance expectedChance = Chance.create(0.25);
+    assertEquals(expectedChance,chanceOfSecondTail1.and(chanceOfFirstTail2));
+  }
+
+  @Test
+  void itShouldRepresentTheChanceOfGettingAtLeastOneTails() throws InvalidChance {
+    Chance chanceOfSecondTail1 = Chance.create(0.5);
+    Chance chanceOfFirstTail2 = Chance.create(0.5);
+    Chance expectedChance = Chance.create(0.75);
+    assertEquals(expectedChance,chanceOfSecondTail1.or(chanceOfFirstTail2));
+  }
 }
