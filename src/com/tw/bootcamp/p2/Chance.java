@@ -19,7 +19,7 @@ public class Chance {
   }
 
   public Chance not() throws InvalidChance {
-    return Chance.create(MAX_CHANCE - chance);
+    return new Chance(MAX_CHANCE - chance);
   }
 
   @Override
