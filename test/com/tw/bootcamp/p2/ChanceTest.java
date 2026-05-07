@@ -3,24 +3,32 @@ package com.tw.bootcamp.p2;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ChanceTest {
   @Test
-  void testingACoinProbability() {
-    Chance tailChance = new Chance(50);
-    assertEquals(50, tailChance.get());
+  void testingACoinProbability() throws InvalidChance {
+    Chance tailChance = Chance.create(0.5);
+    assertEquals(Chance.create(0.5), tailChance);
+  }
+
+
+  @Test
+  void itShouldThrowsAnError() {
+    assertThrows(InvalidChance.class,() ->  Chance.create(2));
+    assertThrows(InvalidChance.class,() ->  Chance.create(-1));
   }
 
   @Test
-  void testingNotOfCoinProbability() {
-    Chance tailChance = new Chance(50);
-    assertEquals(50, tailChance.not());
+  void itShouldReturnNotOfChance() throws InvalidChance {
+    Chance tailChance = Chance.create(0.6);
+    Chance expectedChance = Chance.create(0.4);
+    assertEquals(expectedChance,tailChance.not());
   }
 
   @Test
-  void shouldGetProbabilityOfGetting3InDice() {
-    Chance chanceOf3InDice = new Chance(16);
-    assertEquals(0.16, chanceOf3InDice.getProbability(),0.01);
+  void shouldBeAbleToRepresentChanceOfTails() throws InvalidChance {
+    Chance chanceOfGettingTails = Chance.create(0.25);
+    assertEquals(Chance.create(0.25), chanceOfGettingTails);
   }
-
 }
