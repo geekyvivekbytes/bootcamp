@@ -53,6 +53,6 @@ public class ChanceTest {
     Chance chanceOfSecondTail1 = Chance.create(0.5);
     Chance chanceOfFirstTail2 = Chance.create(0.5);
     Chance expectedChance = Chance.create(0.75);
-    assertEquals(expectedChance,chanceOfSecondTail1.demorgons(chanceOfFirstTail2));
+    assertEquals(expectedChance,chanceOfSecondTail1.orDemorgan(chanceOfFirstTail2));
   }
 }

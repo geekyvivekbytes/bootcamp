@@ -3,11 +3,11 @@ package com.tw.bootcamp.p2;
 import java.util.Objects;
 
 public class Chance {
-  public static final int MIN_CHANCE = 0;
-  public static final int MAX_CHANCE = 1;
+  private static final int MIN_CHANCE = 0;
+  private static final int MAX_CHANCE = 1;
   private final double chance;
 
-  public Chance(double chance) {
+  private Chance(double chance) {
     this.chance = chance;
   }
 
@@ -18,16 +18,20 @@ public class Chance {
     return new Chance(chance);
   }
 
+  private Chance createChance(double chance) {
+    return new Chance(chance);
+  }
+
   public Chance not() {
-    return new Chance(MAX_CHANCE - chance);
+    return createChance(MAX_CHANCE - chance);
   }
 
   public Chance or(Chance otherChance) {
-    return new Chance(chance + otherChance.chance - this.and(otherChance).chance);
+    return createChance(this.chance + otherChance.chance - this.and(otherChance).chance);
   }
 
   public Chance and(Chance otherChance) {
-    return new Chance(chance * otherChance.chance);
+    return createChance(this.chance * otherChance.chance);
   }
 
   @Override
@@ -41,7 +45,7 @@ public class Chance {
     return Objects.hashCode(chance);
   }
 
-  public Chance demorgons(Chance other) {
+  public Chance orDemorgan(Chance other) {
     return (this.not().and(other.not())).not();
   }
 }
