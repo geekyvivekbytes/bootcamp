@@ -1,4 +1,4 @@
-package com.tw.bootcamp.problem1;
+package com.tw.bootcamp.p1;
 
 public class Rectangle {
 
@@ -19,5 +19,9 @@ public class Rectangle {
 
   public int area() {
     return length * breadth;
+  }
+
+  public int perimeter() {
+    return 2 * (length + breadth);
   }
 }

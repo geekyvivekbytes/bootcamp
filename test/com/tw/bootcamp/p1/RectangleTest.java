@@ -1,8 +1,9 @@
-package com.tw.bootcamp.problem1;
+package com.tw.bootcamp.p1;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RectangleTest {
   @Test
@@ -21,5 +22,17 @@ class RectangleTest {
   @Test
   void itShouldThrowAnErrorWhenNegativeValueIsProvidedToCreateRectangle() {
     assertThrows(InvalidDimensionException.class,() -> Rectangle.create(-1,10));
+  }
+
+  @Test
+  void itShouldReturnPerimeter() throws InvalidDimensionException {
+    Rectangle rectangle = Rectangle.create(5, 4);
+    assertEquals(18,rectangle.perimeter());
+  }
+
+  @Test
+  void itShouldReturnTwiceOfLengthAsBreadthIsZero() throws InvalidDimensionException {
+    Rectangle rectangle = Rectangle.create(4, 0);
+    assertEquals(8,rectangle.perimeter());
   }
 }
