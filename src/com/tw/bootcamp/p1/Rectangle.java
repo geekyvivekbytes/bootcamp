@@ -1,6 +1,6 @@
 package com.tw.bootcamp.p1;
 
-public class Rectangle {
+public class Rectangle implements Shape {
 
   private final int length;
   private final int breadth;
@@ -17,10 +17,12 @@ public class Rectangle {
     return new Rectangle(length,breadth);
   }
 
+  @Override
   public int area() {
     return length * breadth;
   }
 
+  @Override
   public int perimeter() {
     return 2 * (length + breadth);
   }
