@@ -18,8 +18,16 @@ public class Chance {
     return new Chance(chance);
   }
 
-  public Chance not() throws InvalidChance {
+  public Chance not() {
     return new Chance(MAX_CHANCE - chance);
+  }
+
+  public Chance or(Chance otherChance) {
+    return new Chance(chance + otherChance.chance - this.and(otherChance).chance);
+  }
+
+  public Chance and(Chance otherChance) {
+    return new Chance(chance * otherChance.chance);
   }
 
   @Override
@@ -33,12 +41,7 @@ public class Chance {
     return Objects.hashCode(chance);
   }
 
-  public Chance or(Chance otherChance) {
-    return new Chance(chance + otherChance.chance - this.and(otherChance).chance);
-
-  }
-
-  public Chance and(Chance otherChance) {
-    return new Chance(chance * otherChance.chance);
+  public Chance demorgons(Chance other) {
+    return (this.not().and(other.not())).not();
   }
 }

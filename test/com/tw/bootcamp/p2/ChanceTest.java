@@ -47,4 +47,12 @@ public class ChanceTest {
     Chance expectedChance = Chance.create(0.75);
     assertEquals(expectedChance,chanceOfSecondTail1.or(chanceOfFirstTail2));
   }
+
+  @Test
+  void shouldOrChancesUseDeMorgonLaw() throws InvalidChance {
+    Chance chanceOfSecondTail1 = Chance.create(0.5);
+    Chance chanceOfFirstTail2 = Chance.create(0.5);
+    Chance expectedChance = Chance.create(0.75);
+    assertEquals(expectedChance,chanceOfSecondTail1.demorgons(chanceOfFirstTail2));
+  }
 }
