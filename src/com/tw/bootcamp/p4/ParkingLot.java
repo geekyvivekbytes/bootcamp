@@ -1,20 +1,27 @@
 package com.tw.bootcamp.p4;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ParkingLot {
   private final int capacity;
-  private final ArrayList<Vehicle> parkingArea;
+  private final ArrayList<Car> parkingArea;
 
   public ParkingLot(int capacity) {
     this.capacity = capacity;
     this.parkingArea = new ArrayList<>();
   }
 
-  public void park(Vehicle vehicle) throws CapacityFullException {
+  public static ParkingLot create(int capacity) {
+    if (capacity < 0) throw new IllegalArgumentException();
+    return new ParkingLot(capacity);
+  }
+
+
+  public void park(Car car) throws CapacityFullException {
     if (isFull()) throw new CapacityFullException();
-    parkingArea.add(vehicle);
+    parkingArea.add(car);
   }
 
   @Override
