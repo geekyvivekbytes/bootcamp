@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Length {
 
-  private static final double DELTA = 0.001;
+  private static final double DELTA = 0.1;
   private final double value;
   private final LengthUnit unit;
 
@@ -36,18 +36,18 @@ public class Length {
     return Length.create(value, LengthUnit.MM);
   }
 
-  private double toMeter() {
+  public double toBase() {
     return unit.value * value;
   }
 
   public Length add(Length other) throws InvalidLength {
-    return create(this.value + (other.toMeter() / this.unit.value), this.unit);
+    return createInch(this.toBase() + other.toBase());
   }
 
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof Length length)) return false;
-    return Math.abs(length.toMeter() - toMeter()) < DELTA;
+    return Math.abs(length.toBase() - toBase()) < DELTA;
   }
 
   @Override

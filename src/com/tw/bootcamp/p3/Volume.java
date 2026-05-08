@@ -3,7 +3,7 @@ package com.tw.bootcamp.p3;
 import java.util.Objects;
 
 
-public class Volume {
+public class Volume{
 
   public static final double DELTA = 0.01;
   private final double value;
@@ -30,10 +30,10 @@ public class Volume {
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof Volume volume)) return false;
-    return Math.abs(volume.toLiter() - toLiter()) < DELTA;
+    return Math.abs(volume.toBase() - toBase()) < DELTA;
   }
 
-  private double toLiter() {
+  public double toBase() {
     return value * volumeUnit.value;
   }
 
@@ -42,15 +42,7 @@ public class Volume {
     return Objects.hash(value, volumeUnit);
   }
 
-  @Override
-  public String toString() {
-    return "Volume{" +
-            "value=" + value +
-            ", unit=" + volumeUnit +
-            '}';
-  }
-
   public Volume add(Volume other) throws InvalidVolume {
-    return Volume.createLiter(this.toLiter() + other.toLiter());
+    return Volume.createLiter(this.toBase() + other.toBase());
   }
 }

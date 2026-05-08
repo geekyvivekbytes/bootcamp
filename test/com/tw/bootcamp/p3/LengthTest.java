@@ -51,10 +51,10 @@ public class LengthTest {
   }
 
   @Test
-  void itShouldAddTwoDifferentUnitAndReturnNewLengthOfFirstType() throws InvalidLength {
+  void itShouldAddTwoDifferentUnitAndReturnInches() throws InvalidLength {
     Length twoInches = Length.createInch(2);
     Length twoAndHalfCM = Length.createCentiMeter(2.5);
     assertEquals(Length.createInch(3), twoInches.add(twoAndHalfCM));
-    assertEquals(Length.createCentiMeter(7.52), twoAndHalfCM.add(twoInches));
+    assertEquals(Length.createInch(3), twoAndHalfCM.add(twoInches));
   }
 }
