@@ -5,28 +5,31 @@ import java.util.Objects;
 public class Length {
 
   private static final double DELTA = 0.01;
-  public static final double INCH_TO_METER_UNIT = 0.0254;
-  public static final double FEET_TO_METER = 0.3048;
-  public static final double CM_TO_METER = 0.01;
   private final double value;
-  private final double conversionUnit;
+  private final Unit conversionUnit;
 
-  private Length(double value, double conversionUnit) {
+  private Length(double value, Unit conversionUnit) {
     this.value = value;
     this.conversionUnit = conversionUnit;
   }
 
-  public static Length createInch(double value) {
-    return new Length(value, INCH_TO_METER_UNIT);
+  private static Length create(double value, Unit converstionUnit) throws InvalidLength {
+    if (value < 0) {
+      throw new InvalidLength("Length can't be negative: " + value);
+    }
+    return new Length(value, converstionUnit);
   }
 
-
-  public static Length createFeet(double value) {
-    return new Length(value, FEET_TO_METER);
+  public static Length createInch(double value) throws InvalidLength {
+    return Length.create(value, Unit.INCH);
   }
 
-  public static Length createCentiMeter(double value) {
-    return new Length(value, CM_TO_METER);
+  public static Length createFeet(double value) throws InvalidLength {
+    return Length.create(value, Unit.FEET);
+  }
+
+  public static Length createCentiMeter(double value) throws InvalidLength {
+    return Length.create(value, Unit.CM);
   }
 
   @Override
@@ -36,7 +39,7 @@ public class Length {
   }
 
   private static double toMeter(Length length) {
-    return length.conversionUnit * length.value;
+    return length.conversionUnit.value * length.value;
   }
 
   @Override
