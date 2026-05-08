@@ -1,10 +1,11 @@
 package com.tw.bootcamp.p3;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class Length {
 
-  private static final double DELTA = 0.01;
+  private static final double DELTA = 0.001;
   private final double value;
   private final Unit conversionUnit;
 
@@ -32,18 +33,30 @@ public class Length {
     return Length.create(value, Unit.CM);
   }
 
+  public static Length createMilliMeter(int value) throws InvalidLength {
+    return  Length.create(value,Unit.MM);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof Length length)) return false;
-    return toMeter(length) - toMeter(this) < DELTA;
+    return Math.abs(length.toMeter() - toMeter()) < DELTA;
   }
 
-  private static double toMeter(Length length) {
-    return length.conversionUnit.value * length.value;
+  private double toMeter() {
+    return conversionUnit.value * value;
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(value, conversionUnit);
+  }
+
+  @Override
+  public String toString() {
+    return "Length{" +
+            "value=" + value +
+            ", conversionUnit=" + conversionUnit +
+            '}';
   }
 }
