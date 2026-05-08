@@ -40,10 +40,8 @@ public class Length {
     return unit.value * value;
   }
 
-  public Length add(Length other) throws InvalidLength, IncompatibleUnits {
-    if (!unit.equals(other.unit))
-      throw new IncompatibleUnits("Different units cannot be added: " + unit + ", " + other.unit);
-    return create(this.value + other.value, this.unit);
+  public Length add(Length other) throws InvalidLength {
+    return create(this.value + (other.toMeter() / this.unit.value), this.unit);
   }
 
   @Override

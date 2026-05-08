@@ -38,23 +38,23 @@ public class LengthTest {
   void itShouldComparesCMAndMM() throws InvalidLength {
     Length milliMeter = Length.createMilliMeter(10);
     Length centiMeter = Length.createCentiMeter(1);
-    assertEquals(centiMeter,milliMeter);
-    assertEquals(milliMeter,centiMeter);
+    assertEquals(centiMeter, milliMeter);
+    assertEquals(milliMeter, centiMeter);
   }
 
   @Test
-  void itShouldAddTwoLengthOfSameUnit() throws InvalidLength, IncompatibleUnits {
+  void itShouldAddTwoLengthOfSameUnit() throws InvalidLength {
     Length twoInches = Length.createInch(2);
     Length threeInches = Length.createInch(3);
     Length fiveInches = twoInches.add(threeInches);
     assertEquals(Length.createInch(5), fiveInches);
   }
 
-
   @Test
-  void itShouldThrowIfWeAddDifferentUnits() throws InvalidLength {
+  void itShouldAddTwoDifferentUnitAndReturnNewLengthOfFirstType() throws InvalidLength {
     Length twoInches = Length.createInch(2);
-    Length twoFeet = Length.createFeet(2);
-    assertThrows(IncompatibleUnits.class, () -> twoInches.add(twoFeet));
+    Length twoAndHalfCM = Length.createCentiMeter(2.5);
+    assertEquals(Length.createInch(3), twoInches.add(twoAndHalfCM));
+    assertEquals(Length.createCentiMeter(7.62), twoAndHalfCM.add(twoInches));
   }
 }
