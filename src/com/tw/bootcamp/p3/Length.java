@@ -36,7 +36,7 @@ public class Length {
     return Length.create(value, LengthUnit.MM);
   }
 
-  public double toBase() {
+  private double toBase() {
     return unit.value * value;
   }
 
