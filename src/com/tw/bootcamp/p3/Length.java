@@ -6,18 +6,18 @@ public class Length {
 
   private static final double DELTA = 0.001;
   private final double value;
-  private final LengthUnit conversionLengthUnit;
+  private final LengthUnit unit;
 
-  private Length(double value, LengthUnit conversionLengthUnit) {
+  private Length(double value, LengthUnit unit) {
     this.value = value;
-    this.conversionLengthUnit = conversionLengthUnit;
+    this.unit = unit;
   }
 
-  private static Length create(double value, LengthUnit converstionLengthUnit) throws InvalidLength {
+  private static Length create(double value, LengthUnit unit) throws InvalidLength {
     if (value < 0) {
       throw new InvalidLength("Length can't be negative: " + value);
     }
-    return new Length(value, converstionLengthUnit);
+    return new Length(value, unit);
   }
 
   public static Length createInch(double value) throws InvalidLength {
@@ -33,7 +33,17 @@ public class Length {
   }
 
   public static Length createMilliMeter(double value) throws InvalidLength {
-    return  Length.create(value, LengthUnit.MM);
+    return Length.create(value, LengthUnit.MM);
+  }
+
+  private double toMeter() {
+    return unit.value * value;
+  }
+
+  public Length add(Length other) throws InvalidLength, IncompatibleUnits {
+    if (!unit.equals(other.unit))
+      throw new IncompatibleUnits("Different units cannot be added: " + unit + ", " + other.unit);
+    return create(this.value + other.value, this.unit);
   }
 
   @Override
@@ -42,20 +52,16 @@ public class Length {
     return Math.abs(length.toMeter() - toMeter()) < DELTA;
   }
 
-  private double toMeter() {
-    return conversionLengthUnit.value * value;
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(value, conversionLengthUnit);
+    return Objects.hash(value, unit);
   }
 
   @Override
   public String toString() {
     return "Length{" +
             "value=" + value +
-            ", conversionUnit=" + conversionLengthUnit +
+            ", conversionUnit=" + unit +
             '}';
   }
 }

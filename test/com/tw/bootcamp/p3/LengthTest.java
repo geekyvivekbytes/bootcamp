@@ -41,4 +41,20 @@ public class LengthTest {
     assertEquals(centiMeter,milliMeter);
     assertEquals(milliMeter,centiMeter);
   }
+
+  @Test
+  void itShouldAddTwoLengthOfSameUnit() throws InvalidLength, IncompatibleUnits {
+    Length twoInches = Length.createInch(2);
+    Length threeInches = Length.createInch(3);
+    Length fiveInches = twoInches.add(threeInches);
+    assertEquals(Length.createInch(5), fiveInches);
+  }
+
+
+  @Test
+  void itShouldThrowIfWeAddDifferentUnits() throws InvalidLength {
+    Length twoInches = Length.createInch(2);
+    Length twoFeet = Length.createFeet(2);
+    assertThrows(IncompatibleUnits.class, () -> twoInches.add(twoFeet));
+  }
 }
