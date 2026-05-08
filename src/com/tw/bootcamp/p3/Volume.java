@@ -49,4 +49,8 @@ public class Volume {
             ", unit=" + volumeUnit +
             '}';
   }
+
+  public Volume add(Volume other) throws InvalidVolume {
+    return Volume.createLiter(this.toLiter() + other.toLiter());
+  }
 }

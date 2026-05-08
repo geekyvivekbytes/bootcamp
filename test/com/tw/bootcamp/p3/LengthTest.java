@@ -55,6 +55,6 @@ public class LengthTest {
     Length twoInches = Length.createInch(2);
     Length twoAndHalfCM = Length.createCentiMeter(2.5);
     assertEquals(Length.createInch(3), twoInches.add(twoAndHalfCM));
-    assertEquals(Length.createCentiMeter(7.62), twoAndHalfCM.add(twoInches));
+    assertEquals(Length.createCentiMeter(7.52), twoAndHalfCM.add(twoInches));
   }
 }

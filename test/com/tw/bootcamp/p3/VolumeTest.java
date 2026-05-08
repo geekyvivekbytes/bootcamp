@@ -14,6 +14,13 @@ public class VolumeTest {
   }
 
   @Test
+  void itShouldAddTwoVolumeAndReturnInLiter() throws InvalidVolume {
+    Volume oneLiter = Volume.createLiter(1);
+    Volume gallon = Volume.createGallon(1);
+    assertEquals(Volume.createLiter(4.78),gallon.add(oneLiter));
+  }
+
+  @Test
   void shouldThrowForInvalidVolume() {
     assertThrows(InvalidVolume.class, () -> Volume.createGallon(-34));
   }
