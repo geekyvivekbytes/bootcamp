@@ -14,10 +14,15 @@ public class ParkingLot {
   }
 
   public static ParkingLot create(int capacity) {
-    if (capacity < 0) throw new IllegalArgumentException();
+    if (capacity < 0) {
+      throw new IllegalArgumentException("Capacity can't be negative");
+    }
     return new ParkingLot(capacity);
   }
 
+  public boolean isFull() {
+    return parkingArea.size() >= capacity;
+  }
 
   public void park(Car car) throws CapacityFullException {
     if (isFull()) throw new CapacityFullException();
@@ -33,9 +38,5 @@ public class ParkingLot {
   @Override
   public int hashCode() {
     return Objects.hash(capacity, parkingArea);
-  }
-
-  public boolean isFull() {
-    return parkingArea.size() >= capacity;
   }
 }

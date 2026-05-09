@@ -1,9 +1,10 @@
 package com.tw.bootcamp.p4;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ParkingTest {
+public class ParkingLotTest {
   @Test
   void parkShouldParkTheGivenCar() throws CapacityFullException {
     ParkingLot parkingLot = ParkingLot.create(1);
