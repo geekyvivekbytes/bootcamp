@@ -1,25 +1,49 @@
 package com.tw.bootcamp.p5;
 
-import com.tw.bootcamp.p4.CapacityFullException;
-
+import javax.naming.LimitExceededException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Bag {
 
   private final int capacity;
-  private final ArrayList<Ball> storage;
+  private final List<Ball> storage;
+
 
   public Bag(int capacity) {
     this.capacity = capacity;
     storage = new ArrayList<>();
   }
 
-  public void add(Ball ball) throws CapacityFullException {
-    if (storage.size() >= capacity) {
-      throw new CapacityFullException();
-    }
+  public void add(Ball ball) throws LimitExceededException {
+    validate(ball);
+
     storage.add(ball);
+  }
+
+  private void validate(Ball ball) throws LimitExceededException {
+    if (storage.size() >= capacity) {
+      throw new LimitExceededException();
+    }
+
+
+    if (ball.isSameColor(Color.GREEN) && getBallCount(Color.GREEN) == 3) {
+      throw new LimitExceededException();
+    }
+
+    if (ball.isSameColor(Color.RED) && getBallCount(Color.RED) == getBallCount(Color.GREEN) * 2) {
+      throw new LimitExceededException();
+    }
+
+  }
+
+  private int getBallCount(Color color) {
+    int count = 0;
+    for (Ball ball : storage) {
+      count += ball.isSameColor(color) ? 1 : 0;
+    }
+    return count;
   }
 
   @Override
