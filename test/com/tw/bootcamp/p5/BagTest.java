@@ -40,8 +40,38 @@ public class BagTest {
   }
 
   @Test
+  void itShouldThrowIfRedBallsAreAddedWithNoGreenBalls() {
+    Bag bag = new Bag(12);
+
+    assertThrows(LimitExceededException.class, () -> bag.add(new Ball(Color.RED)));
+  }
+
+  @Test
   void itShouldThrowErrorIfBagIsFull() {
     Bag bag = new Bag(0);
     assertThrows(LimitExceededException.class, () -> bag.add(new Ball(Color.BLUE)));
+  }
+
+  @Test
+  void itShouldThrowIfYellowBallsAreMoreThan40PercentOfBag() throws LimitExceededException {
+    Bag bag = new Bag(12);
+    bag.add(new Ball(Color.GREEN));
+
+    assertThrows(LimitExceededException.class, () -> bag.add(new Ball(Color.YELLOW)));
+  }
+
+  @Test
+  void itShouldCreatePreviewOfBag() throws LimitExceededException {
+    String expectedSummary = """
+            green :1
+            blue :1
+            
+            Total :2""";
+
+    Bag bag = new Bag(12);
+    bag.add(new Ball(Color.BLUE));
+    bag.add(new Ball(Color.GREEN));
+
+    assertEquals(expectedSummary, bag.generateSummary());
   }
 }

@@ -23,22 +23,30 @@ public class Bag {
   }
 
   private void validate(Ball ball) throws LimitExceededException {
-    if (storage.size() >= capacity) {
+    int currentSize = storage.size();
+
+    if (currentSize >= capacity) {
       throw new LimitExceededException();
     }
 
-
-    if (ball.isSameColor(Color.GREEN) && getBallCount(Color.GREEN) == 3) {
+    if (ball.isSameColor(Color.GREEN) && getBallCountOf(Color.GREEN) == 3) {
       throw new LimitExceededException();
     }
 
-    if (ball.isSameColor(Color.RED) && getBallCount(Color.RED) == getBallCount(Color.GREEN) * 2) {
+    if (ball.isSameColor(Color.RED) && getBallCountOf(Color.RED) == getBallCountOf(Color.GREEN) * 2) {
+      throw new LimitExceededException();
+    }
+
+    int yellowCount = getBallCountOf(Color.YELLOW);
+    double expectedYellowCount = currentSize * 0.4;
+
+    if (ball.isSameColor(Color.YELLOW) && expectedYellowCount - yellowCount < 1) {
       throw new LimitExceededException();
     }
 
   }
 
-  private int getBallCount(Color color) {
+  private int getBallCountOf(Color color) {
     int count = 0;
     for (Ball ball : storage) {
       count += ball.isSameColor(color) ? 1 : 0;
@@ -55,5 +63,24 @@ public class Bag {
   @Override
   public int hashCode() {
     return Objects.hash(capacity, storage);
+  }
+
+
+  public String generateSummary() {
+    StringBuilder stringBuilder = new StringBuilder();
+
+    for (Color color : Color.values()) {
+      int count = getBallCountOf(color);
+      if (count != 0) {
+        stringBuilder
+                .append(color.toString().toLowerCase())
+                .append(" :")
+                .append(count)
+                .append("\n");
+      }
+    }
+    stringBuilder.append("\nTotal :").append(storage.size());
+
+    return stringBuilder.toString();
   }
 }
