@@ -1,23 +1,24 @@
 package com.tw.bootcamp.p4;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ParkingLot {
+  private final String id;
   private final int capacity;
   private final ArrayList<Car> parkingArea;
 
-  public ParkingLot(int capacity) {
+  public ParkingLot(String id, int capacity) {
+    this.id = id;
     this.capacity = capacity;
     this.parkingArea = new ArrayList<>();
   }
 
-  public static ParkingLot create(int capacity) {
+  public static ParkingLot create(String id, int capacity) {
     if (capacity < 0) {
       throw new IllegalArgumentException("Capacity can't be negative");
     }
-    return new ParkingLot(capacity);
+    return new ParkingLot(id, capacity);
   }
 
   public boolean isFull() {
@@ -38,5 +39,11 @@ public class ParkingLot {
   @Override
   public int hashCode() {
     return Objects.hash(capacity, parkingArea);
+  }
+
+  @Override
+  public String toString() {
+    String status = isFull() ? "Full" : "Free";
+    return String.format("%s %s %d/%d", id, status, parkingArea.size(), capacity);
   }
 }

@@ -2,6 +2,7 @@ package com.tw.bootcamp.p4;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -43,6 +44,21 @@ public class ParkingSystemTest {
 
     parkingSystem.add("P1", parkingLot);
 
+    assertTrue(parkingSystem.isLotFull("P1"));
+    verify(parkingLot).isFull();
+    verifyNoMoreInteractions(parkingLot);
+  }
+
+  @Test
+  void itShouldGenerateAReport() {
+    ParkingSystem parkingSystem = new ParkingSystem();
+    ParkingLot parkingLot = mock(ParkingLot.class);
+    parkingSystem.add("P1", parkingLot);
+
+    when(parkingLot.toString()).thenReturn("P1 Full (6/6)");
+    when(parkingLot.isFull()).thenReturn(true);
+
+    assertEquals("P1 Full (6/6)\n", parkingSystem.report());
     assertTrue(parkingSystem.isLotFull("P1"));
   }
 }

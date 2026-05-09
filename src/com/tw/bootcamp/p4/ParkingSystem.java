@@ -3,7 +3,7 @@ package com.tw.bootcamp.p4;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParkingSystem {
+public class ParkingSystem implements ParkingSystemView {
   Map<String, ParkingLot> parkingLots;
 
   public ParkingSystem() {
@@ -20,6 +20,15 @@ public class ParkingSystem {
 
   public boolean isLotFull(String parkingId) {
     return parkingLots.get(parkingId).isFull();
+  }
+
+  @Override
+  public String report() {
+    StringBuilder report = new StringBuilder();
+    for (ParkingLot lot : parkingLots.values()) {
+      report.append(lot.toString()).append("\n");
+    }
+    return report.toString();
   }
 }
 
